@@ -1,4 +1,6 @@
-server.port: 9090
+server:
+  port: 9090
+  contextPath: /
 
 spring.application.name: reverseproxy
 

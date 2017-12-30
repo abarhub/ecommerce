@@ -1,4 +1,6 @@
-server.port: 8761
+server:
+  port: 8761
+  contextPath: /
 
 spring.application.name: discovery
 
