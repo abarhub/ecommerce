@@ -4,3 +4,6 @@ server:
 
 spring.application.name: discovery
 
+
+management.context-path: /actuator
+management.security.enabled: false

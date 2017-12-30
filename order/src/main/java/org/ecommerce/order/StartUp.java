@@ -31,7 +31,7 @@ public class StartUp implements CommandLineRunner {
 		// ajout des données de tests
 		for (int i = 1; i < 4; i++) {
 			product = new Product();
-			product.setName(String.format("Product %d", i));
+			product.setName(String.format("Product %02d", i));
 			product.setQuantite(100 + 50 * i);
 
 			productRepository.save(product);
