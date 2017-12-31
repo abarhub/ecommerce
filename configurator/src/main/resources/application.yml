@@ -1,0 +1,20 @@
+server:
+  port: 8888
+  #port: 0
+  contextPath: /
+
+spring.application.name: configurator
+
+spring.profiles.active: native
+
+management.context-path: /actuator
+management.security.enabled: false
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:/projet/ecommerce/configurator/config
+
+
+

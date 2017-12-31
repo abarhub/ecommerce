@@ -5,12 +5,12 @@ server:
   port: 0
   contextPath: /
 
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-    instance:
-    preferIpAddress: true
+#eureka:
+#    client:
+#        serviceUrl:
+#            defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+#    instance:
+#    preferIpAddress: true
 
 # create and drop tables and sequences, loads import.sql
 #spring.jpa.hibernate.ddl-auto: create-drop
@@ -42,8 +42,8 @@ liquibase.default-schema: public
 
 
 #endpoints.actuator.path: /admin
-management.context-path: /actuator
-management.security.enabled: false
+#management.context-path: /actuator
+#management.security.enabled: false
 
-endpoints.sensitive: false
+#endpoints.sensitive: false
 
