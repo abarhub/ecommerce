@@ -1,4 +1,4 @@
-package org.ecommerce.order.web.dto;
+package org.ecommerce.orderdto.dto;
 
 public class ProductDto {
 
@@ -31,5 +31,14 @@ public class ProductDto {
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDto{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", quantite=" + quantite +
+				'}';
 	}
 }

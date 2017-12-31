@@ -18,6 +18,7 @@
     <module>discovery</module>
     <module>ui</module>
     <module>order</module>
+    <module>orderdto</module>
     <module>reverseproxy</module>
   </modules>
 

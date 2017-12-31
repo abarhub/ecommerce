@@ -2,8 +2,8 @@ package org.ecommerce.order.services;
 
 import org.ecommerce.order.dao.domain.Product;
 import org.ecommerce.order.dao.repository.ProductRepository;
-import org.ecommerce.order.web.dto.ListProductDto;
-import org.ecommerce.order.web.dto.ProductDto;
+import org.ecommerce.orderdto.dto.ListProductDto;
+import org.ecommerce.orderdto.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +40,13 @@ public class ProductService {
 		}
 
 		return listProductDto;
+	}
+
+	@Transactional
+	public void addProduct(ProductDto productDto) {
+		Product product = new Product();
+		product.setName(productDto.getName());
+		product.setQuantite(productDto.getQuantite());
+		productRepository.save(product);
 	}
 }
