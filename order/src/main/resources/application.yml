@@ -31,7 +31,7 @@ liquibase.change-log: classpath:/db/changelog/db.changelog-master.xml
 
 #endpoints.actuator.path: /admin
 #management.context-path: /actuator
-#management.security.enabled: false
+management.security.enabled: false
 
-#endpoints.sensitive: false
+endpoints.sensitive: false
 
