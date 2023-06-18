@@ -28,12 +28,15 @@ public class StartUp implements CommandLineRunner {
 		LOGGER.info("saveProduct ...");
 		Product product;
 
+		productRepository.deleteAll();
+
 		// ajout des données de tests
 		for (int i = 1; i < 4; i++) {
 			product = new Product();
 			product.setName(String.format("Product %02d", i));
 			product.setQuantite(100 + 50 * i);
 
+			LOGGER.info("save ...");
 			productRepository.save(product);
 		}
 

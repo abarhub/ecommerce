@@ -27,11 +27,23 @@ spring.jpa.hibernate.ddl-auto: none
 #spring.datasource.driver-class-oracle.jdbc.driver.OracleDriver
 
 
-liquibase.change-log: classpath:/db/changelog/db.changelog-master.xml
+spring.liquibase.change-log: classpath:/db/changelog/db.changelog-master.xml
 
 #endpoints.actuator.path: /admin
 #management.context-path: /actuator
 management.security.enabled: false
 
 endpoints.sensitive: false
+
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      env: default # optional
+      label: master # optional
+    #uri: http://localhost:8888 # optional
+    #uri: http://localhost:9090/configurator
+
+spring.config.import: configserver:http://localhost:8888
 
