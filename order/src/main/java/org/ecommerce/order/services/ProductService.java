@@ -1,5 +1,6 @@
 package org.ecommerce.order.services;
 
+import jakarta.transaction.Transactional;
 import org.ecommerce.order.dao.domain.Product;
 import org.ecommerce.order.dao.repository.ProductRepository;
 import org.ecommerce.orderdto.dto.ListProductDto;
@@ -7,7 +8,6 @@ import org.ecommerce.orderdto.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 @Service

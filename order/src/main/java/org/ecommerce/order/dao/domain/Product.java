@@ -1,14 +1,23 @@
 package org.ecommerce.order.dao.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+//	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "PRODUCT_SEQ"
+	)
+	@SequenceGenerator(
+			name = "PRODUCT_SEQ",
+			allocationSize = 1
+	)
 	private Long id;
 
 	@Column(length = 50)

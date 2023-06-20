@@ -1,5 +1,6 @@
 package org.ecommerce.order;
 
+import jakarta.transaction.Transactional;
 import org.ecommerce.order.dao.domain.Product;
 import org.ecommerce.order.dao.repository.ProductRepository;
 import org.slf4j.Logger;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 
 @Service
 public class StartUp implements CommandLineRunner {

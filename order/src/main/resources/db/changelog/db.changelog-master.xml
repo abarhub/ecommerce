@@ -45,7 +45,7 @@
                          minValue="1"
                          ordered="true"
                          schemaName="public"
-                         sequenceName="HIBERNATE_SEQUENCE"
+                         sequenceName="PRODUCT_SEQ"
                          startValue="1"/>
 
     </changeSet>

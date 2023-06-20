@@ -14,7 +14,7 @@ spring:
     config:
       server:
         native:
-          search-locations: file:///C:/projet/ecommerce/configurator/config
+          search-locations: file:///D:/projet/ecommerce/configurator/config
 
 
 
