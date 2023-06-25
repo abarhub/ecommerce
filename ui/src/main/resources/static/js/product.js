@@ -6,11 +6,11 @@ angular.module('productApp', [])
             var factory = {};
 
             factory.getAllProduct = function () {
-                return $http.get('/product');
+                return $http.get('product');
             };
 
             factory.addProduct = function (product) {
-                return $http.post('/product', {
+                return $http.post('product', {
                     nom: product.nom,
                     quantite: product.quantite
                 });
