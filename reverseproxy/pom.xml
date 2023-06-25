@@ -41,6 +41,13 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<groupId>org.ecommerce</groupId>-->
+<!--			<artifactId>orderdto</artifactId>-->
+<!--			<version>${project.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>
