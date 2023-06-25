@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class ServiceConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceConfiguration.class);
@@ -42,35 +42,36 @@ public class ServiceConfiguration {
 //        return new DiscoveryClientRouteDefinitionLocator(discoveryClient);
 //    }
 
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-        LOGGER.atInfo().log("configure customRouteLocator");
-        return builder.routes()
-                .route("path_route", r -> r.path("/get")
-                        .uri("http://httpbin.org"))
-                .route("host_route", r -> r.host("*.myhost.org")
-                        .uri("http://httpbin.org"))
-                .route("rewrite_route", r -> r.host("*.rewrite.org")
-                        .filters(f -> f.rewritePath("/foo/(?<segment>.*)", "/${segment}"))
-                        .uri("http://httpbin.org"))
-//                .route("hystrix_route", r -> r.host("*.hystrix.org")
-//                        .filters(f -> f.hystrix(c -> c.setName("slowcmd")))
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+//        LOGGER.atInfo().log("configure customRouteLocator");
+//        return builder.routes()
+//                .route("path_route", r -> r.path("/get")
 //                        .uri("http://httpbin.org"))
-//                .route("hystrix_fallback_route", r -> r.host("*.hystrixfallback.org")
-//                        .filters(f -> f.hystrix(c -> c.setName("slowcmd").setFallbackUri("forward:/hystrixfallback")))
+//                .route("host_route", r -> r.host("*.myhost.org")
 //                        .uri("http://httpbin.org"))
-//                .route("limit_route", r -> r
-//                        .host("*.limited.org").and().path("/anything/**")
-//                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter())))
+//                .route("rewrite_route", r -> r.host("*.rewrite.org")
+//                        .filters(f -> f.rewritePath("/foo/(?<segment>.*)", "/${segment}"))
 //                        .uri("http://httpbin.org"))
-                .route("path_route_ui", r -> r.path("/ui/**")
-                        .filters(f -> f.rewritePath("/ui/(?<segment>.*)", "/${segment}"))
-                        .uri("http://ui"))
-//                        .uri("http://localhost:56940"))
-//                .route("path_route_ui2", r -> r.path("/ui/product2.html")
-//                        .uri("http://localhost:51015/product2.html"))
-                .route("path_route_ui", r -> r.path("/ui2")
-                        .uri("http://ui"))
-                .build();
-    }
+////                .route("hystrix_route", r -> r.host("*.hystrix.org")
+////                        .filters(f -> f.hystrix(c -> c.setName("slowcmd")))
+////                        .uri("http://httpbin.org"))
+////                .route("hystrix_fallback_route", r -> r.host("*.hystrixfallback.org")
+////                        .filters(f -> f.hystrix(c -> c.setName("slowcmd").setFallbackUri("forward:/hystrixfallback")))
+////                        .uri("http://httpbin.org"))
+////                .route("limit_route", r -> r
+////                        .host("*.limited.org").and().path("/anything/**")
+////                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter())))
+////                        .uri("http://httpbin.org"))
+//                .route("path_route_ui", r -> r.path("/ui/**")
+//                        .filters(f -> f.rewritePath("/ui/(?<segment>.*)", "/${segment}"))
+//                        //.uri("http://ui"))
+//                        .uri("lb://ui"))
+////                        .uri("http://localhost:56940"))
+////                .route("path_route_ui2", r -> r.path("/ui/product2.html")
+////                        .uri("http://localhost:51015/product2.html"))
+//                .route("path_route_ui", r -> r.path("/ui2")
+//                        .uri("http://ui"))
+//                .build();
+//    }
 }

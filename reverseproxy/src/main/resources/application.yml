@@ -12,18 +12,24 @@ eureka:
     instance:
     preferIpAddress: true
 
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#      - id: baeldung_route
-#        uri: https://www.baeldung.com/
-#        predicates:
-#        - Path=/baeldung/
-#      - id: ui_route
-#        uri: http://localhost:58250/
-#        predicates:
-#          - Path=/ui/
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: baeldung_route
+        uri: https://www.baeldung.com/
+        predicates:
+        - Path=/baeldung/
+      - id: ui_route
+        uri: lb://ui
+        predicates:
+          - Path=/ui/**
+        filters:
+          - StripPrefix=1
+      httpserver:
+        wiretap: true
+      httpclient:
+        wiretap: true
 management:
   endpoints:
     web:
@@ -36,13 +42,6 @@ management.security.enabled: false
 management.endpoint.gateway.enabled: true
 
 
-spring:
-  cloud:
-    gateway:
-      httpserver:
-        wiretap: true
-      httpclient:
-        wiretap: true
 
 
 logging:
