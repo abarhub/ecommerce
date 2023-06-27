@@ -8,4 +8,9 @@ spring.application.name: discovery
 management.context-path: /actuator
 management.security.enabled: false
 
-eureka.instance.leaseRenewalIntervalInSeconds: 5
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+  #client:
+  #  healthcheck:
+  #    enabled: true

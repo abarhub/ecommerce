@@ -5,12 +5,15 @@ server:
   port: 0
   contextPath: /
 
-#eureka:
+eureka:
 #    client:
 #        serviceUrl:
 #            defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 #    instance:
 #    preferIpAddress: true
+
+    instance:
+      instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 #management.context-path: /actuator
 #management.security.enabled: false

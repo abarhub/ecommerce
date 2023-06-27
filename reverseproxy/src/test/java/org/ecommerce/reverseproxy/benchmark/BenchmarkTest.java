@@ -33,5 +33,11 @@ public class BenchmarkTest {
 
         var res=restTemplate.postForEntity(url,produit, Void.class);
         assertEquals(HttpStatus.OK,res.getStatusCode());
+
+        try{
+            Thread.sleep(500);
+        }catch (Exception e){
+            LOGGER.warn("erreur",e);
+        }
     }
 }
