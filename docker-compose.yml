@@ -1,0 +1,55 @@
+version: '2'
+services:
+  configurator:
+    container_name: configurator
+    build:
+      context: configurator
+      dockerfile: Dockerfile
+    image: configurator:latest
+    ports:
+      - 8888:8888
+    networks:
+      - spring-cloud-network
+  discovery:
+    container_name: discovery
+    build:
+      context: discovery
+      dockerfile: Dockerfile
+    image: discovery:latest
+    ports:
+      - 8761:8761
+    networks:
+      - spring-cloud-network
+  order:
+    container_name: order
+    build:
+      context: order
+      dockerfile: Dockerfile
+    image: order:latest
+    ports:
+      - 18080:8080
+    networks:
+      - spring-cloud-network
+  reverseproxy:
+    container_name: reverseproxy
+    build:
+      context: reverseproxy
+      dockerfile: Dockerfile
+    image: reverseproxy:latest
+    ports:
+      - 19090:19090
+    networks:
+      - spring-cloud-network
+  ui:
+    container_name: ui
+    build:
+      context: ui
+      dockerfile: Dockerfile
+    image: ui:latest
+    ports:
+      - 18081:8080
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
