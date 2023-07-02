@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/todo.css">
+</head>
+<body>
+
+<script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+      "axios": "https://unpkg.com/axios@1.4.0/dist/esm/axios.min.js"
+    }
+  }
+</script>
+
+<h2>Product</h2>
+
+<div id="app">{{ message }}
+
+        <span>{{listeProduits.length}} of {{listeProduits.length}} remaining</span>
+<!--        [ <a href="" ng-click="productList.archive()">archive</a> ]-->
+        <ul class="unstyled">
+            <li v-for="product of listeProduits">
+                <label class="checkbox">
+                    <span >{{product.nom}}</span>
+                    <span >{{product.quantite}}</span>
+                </label>
+            </li>
+        </ul>
+        <form >
+            <input type="text" v-model="formulaireNom"  size="30"
+                   placeholder="Name">
+            <input type="number" v-model="formulaireQuantite"  size="30"
+                   placeholder="Quantite">
+<!--            <input class="btn-primary" type="submit" value="add" @click="submit">-->
+            <button @click.prevent="ajouteProduit">add</button>
+        </form>
+
+
+
+</div>
+
+
+<script type="module">
+  import { createApp } from 'vue'
+  import MyComponent from './js/product3.js'
+
+  createApp(MyComponent).mount('#app')
+</script>
+
+</body>
+</html>
