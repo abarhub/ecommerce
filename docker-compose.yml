@@ -1,4 +1,4 @@
-version: '2'
+version: '2.4'
 services:
   configurator:
     container_name: configurator
@@ -7,9 +7,16 @@ services:
       dockerfile: Dockerfile
     image: configurator:latest
     ports:
-      - 8888:8888
+      - "8888:8888"
     networks:
       - spring-cloud-network
+    depends_on:
+      - discovery
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   discovery:
     container_name: discovery
     build:
@@ -17,9 +24,14 @@ services:
       dockerfile: Dockerfile
     image: discovery:latest
     ports:
-      - 8761:8761
+      - "8761:8761"
     networks:
       - spring-cloud-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   order:
     container_name: order
     build:
@@ -30,6 +42,9 @@ services:
       - 18080:8080
     networks:
       - spring-cloud-network
+    depends_on:
+      - configurator
+      - discovery
   reverseproxy:
     container_name: reverseproxy
     build:
@@ -40,6 +55,14 @@ services:
       - 19090:19090
     networks:
       - spring-cloud-network
+    depends_on:
+      - ui
+      - discovery
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:19090/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   ui:
     container_name: ui
     build:
@@ -50,6 +73,10 @@ services:
       - 18081:8080
     networks:
       - spring-cloud-network
+    depends_on:
+      - order
+      - discovery
+      - configurator
 networks:
   spring-cloud-network:
     driver: bridge
