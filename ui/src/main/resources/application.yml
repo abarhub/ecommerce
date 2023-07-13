@@ -4,16 +4,17 @@ spring.application.name: ui
 server:
   port: 0
   contextPath: /
+  shutdown: graceful
 
 eureka:
-#    client:
-#        serviceUrl:
-#            defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    client:
+        serviceUrl:
+            defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 #    instance:
 #    preferIpAddress: true
 
     instance:
-      instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+        instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 #management.context-path: /actuator
 #management.security.enabled: false
@@ -27,10 +28,17 @@ spring:
     config:
       env: default # optional
       label: master # optional
+      fail-fast: true
     #uri: http://localhost:8888 # optional
     #uri: http://localhost:9090/configurator
 
 
-spring.config.import: configserver:http://localhost:8888
+spring.config.import: ${CONFIG_URI:configserver:http://localhost:8888}
 
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
 

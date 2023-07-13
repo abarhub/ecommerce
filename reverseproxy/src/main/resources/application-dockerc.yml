@@ -1,0 +1,4 @@
+
+
+spring.config.import: configserver:http://configurator:8888
+  #EUREKA_URI=http://discovery:8761/eureka

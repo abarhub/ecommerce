@@ -11,9 +11,12 @@ services:
     networks:
       - spring-cloud-network
     depends_on:
-      - discovery
+      discovery:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+#      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      #test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health/readiness" ]
+      test: "curl --fail --silent http://localhost:8888/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 3
@@ -28,23 +31,36 @@ services:
     networks:
       - spring-cloud-network
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      #test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      #test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health/readiness" ]
+      test: "curl --fail --silent http://localhost:8761/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 20s
   order:
     container_name: order
     build:
       context: order
       dockerfile: Dockerfile
     image: order:latest
+    environment:
+      CONFIG_URI: configserver:http://configurator:8888
+      EUREKA_URI: http://discovery:8761/eureka
     ports:
       - 18080:8080
     networks:
       - spring-cloud-network
     depends_on:
-      - configurator
-      - discovery
+      configurator:
+        condition: service_healthy
+      discovery:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
   reverseproxy:
     container_name: reverseproxy
     build:
@@ -56,10 +72,14 @@ services:
     networks:
       - spring-cloud-network
     depends_on:
-      - ui
-      - discovery
+      #ui:
+      #  condition: service_healthy
+      discovery:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:19090/actuator/health" ]
+      #test: [ "CMD", "curl", "-f", "http://localhost:19090/actuator/health" ]
+      #test: [ "CMD", "curl", "-f", "http://localhost:19090/actuator/health/readiness" ]
+      test: "curl --fail --silent http://localhost:19090/actuator/health/readiness | grep UP || exit 1"
       interval: 30s
       timeout: 10s
       retries: 3
@@ -71,12 +91,23 @@ services:
     image: ui:latest
     ports:
       - 18081:8080
+    environment:
+      CONFIG_URI: configserver:http://configurator:8888
+      EUREKA_URI: http://discovery:8761/eureka
     networks:
       - spring-cloud-network
     depends_on:
-      - order
-      - discovery
-      - configurator
+      order:
+        condition: service_healthy
+      discovery:
+        condition: service_healthy
+      configurator:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
 networks:
   spring-cloud-network:
     driver: bridge
