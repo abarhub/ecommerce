@@ -6,6 +6,8 @@ services:
       context: configurator
       dockerfile: Dockerfile
     image: configurator:latest
+    environment:
+      EUREKA_URI: http://discovery:8761/eureka
     ports:
       - "8888:8888"
     networks:
@@ -26,6 +28,8 @@ services:
       context: discovery
       dockerfile: Dockerfile
     image: discovery:latest
+    environment:
+      EUREKA_URI: http://discovery:8761/eureka
     ports:
       - "8761:8761"
     networks:
@@ -67,6 +71,8 @@ services:
       context: reverseproxy
       dockerfile: Dockerfile
     image: reverseproxy:latest
+    environment:
+      EUREKA_URI: http://discovery:8761/eureka
     ports:
       - 19090:19090
     networks:

@@ -1,7 +1,0 @@
-
-
-eureka.instance.hostname: configurator
-
-eureka.client.serviceUrl.defaultZone: http://discovery:8761/eureka
-spring.cloud.config.server.native.search-locations: /config
-
