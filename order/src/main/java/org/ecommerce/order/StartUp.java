@@ -35,6 +35,7 @@ public class StartUp implements CommandLineRunner {
 		for (int i = 1; i < 4; i++) {
 			product = new Product();
 			product.setName(String.format("Product %02d", i));
+			product.setCode(String.format("code%02d", i));
 			product.setQuantite(100 + 50 * i);
 
 			LOGGER.info("save ...");

@@ -25,6 +25,11 @@ public class Product {
 	@NotNull
 	private String name;
 
+	@Column(length = 50,unique = true)
+	@Size(max = 50)
+	@NotNull
+	private String code;
+
 	@Column
 	private int quantite;
 
@@ -45,6 +50,14 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public int getQuantite() {
