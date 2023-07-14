@@ -8,6 +8,7 @@ services:
     image: configurator:latest
     environment:
       EUREKA_URI: http://discovery:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411/api/v2/spans
     ports:
       - "8888:8888"
     networks:
@@ -30,6 +31,7 @@ services:
     image: discovery:latest
     environment:
       EUREKA_URI: http://discovery:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411/api/v2/spans
     ports:
       - "8761:8761"
     networks:
@@ -51,6 +53,7 @@ services:
     environment:
       CONFIG_URI: configserver:http://configurator:8888
       EUREKA_URI: http://discovery:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411/api/v2/spans
     ports:
       - 18080:8080
     networks:
@@ -73,6 +76,7 @@ services:
     image: reverseproxy:latest
     environment:
       EUREKA_URI: http://discovery:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411/api/v2/spans
     ports:
       - 19090:19090
     networks:
@@ -100,6 +104,7 @@ services:
     environment:
       CONFIG_URI: configserver:http://configurator:8888
       EUREKA_URI: http://discovery:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411/api/v2/spans
     networks:
       - spring-cloud-network
     depends_on:
@@ -114,6 +119,25 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
+    #environment:
+      #- STORAGE_TYPE=mem
+      # Point the zipkin at the storage backend
+      #- MYSQL_HOST=mysql
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to increase heap size
+      # - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
+    ports:
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+    # Uncomment to enable debug logging
+    # command: --logging.level.zipkin2=DEBUG
+    networks:
+      - spring-cloud-network
 networks:
   spring-cloud-network:
     driver: bridge
