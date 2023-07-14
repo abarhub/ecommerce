@@ -19,12 +19,12 @@ export default {
         const formulaireQuantite = ref('');
 
         function getAllProduct() {
-            return axios.get('/product');
+            return axios.get('product');
         }
 
         function addProduct(nom, quantite) {
             console.log('ajout de \''+nom+'\' '+quantite);
-            return axios.post('/product', {
+            return axios.post('product', {
                 nom: nom,
                 quantite: quantite
             }).then(response=>{
