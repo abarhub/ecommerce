@@ -4,7 +4,10 @@ package org.ecommerce.order.dao.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
+@DynamicUpdate
 @Entity
 public class Product {
 

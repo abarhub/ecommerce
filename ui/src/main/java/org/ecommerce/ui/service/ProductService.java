@@ -32,6 +32,7 @@ public class ProductService {
 				uiProductDto.setId(productDto.getId());
 				uiProductDto.setNom(productDto.getName());
 				uiProductDto.setQuantite(productDto.getQuantite());
+				uiProductDto.setCode(productDto.getCode());
 				listUIProductDto.getUiProductDtoList().add(uiProductDto);
 			}
 		}
@@ -44,8 +45,13 @@ public class ProductService {
 
 		ProductDto productDto = new ProductDto();
 		productDto.setName(uiProductDto.getNom());
+		productDto.setCode(uiProductDto.getCode());
 		productDto.setQuantite(uiProductDto.getQuantite());
 
 		orderRestService.addProduct(productDto);
+	}
+
+	public void restockProduct(String code, int amount) {
+		orderRestService.restockProduct(code,amount);
 	}
 }

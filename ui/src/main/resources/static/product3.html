@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="css/todo.css">
 </head>
 <body>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script type="importmap">
   {
     "imports": {
@@ -18,7 +21,7 @@
 
 <h2>Product</h2>
 
-<div id="app">{{ message }}
+<div id="app" class="container">{{ message }}
 
         <span>{{listeProduits.length}} of {{listeProduits.length}} remaining</span>
 <!--        [ <a href="" ng-click="productList.archive()">archive</a> ]-->
@@ -30,12 +33,52 @@
                 </label>
             </li>
         </ul>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Code</th>
+            <th scope="col">quantite</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="product of listeProduits">
+            <td>{{product.nom}}</td>
+            <td>{{product.code}}</td>
+            <td>{{product.quantite}}</td>
+        </tr>
+        </tbody>
+    </table>
+
         <form >
-            <input type="text" v-model="formulaireNom"  size="30"
-                   placeholder="Nom">
-            <input type="number" v-model="formulaireQuantite"  size="30"
-                   placeholder="Quantite">
-            <button @click.prevent="ajouteProduit">add</button>
+            <div class="mb-3">
+                <label for="inputNom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="inputNom" placeholder="Nom"
+                       v-model="formulaireNom" size="30">
+            </div>
+
+            <div class="mb-3">
+                <label for="inputCode" class="form-label">Code</label>
+                <input type="text" class="form-control" id="inputCode" placeholder="Code"
+                       v-model="formulaireCode"  size="30">
+            </div>
+
+            <div class="mb-3">
+                <label for="inputQuantite" class="form-label">Quantite</label>
+                <input type="number" class="form-control" id="inputQuantite" placeholder="Quantite"
+                       v-model="formulaireQuantite"  size="30">
+            </div>
+
+<!--            <input type="text" v-model="formulaireNom"  size="30"-->
+<!--                   placeholder="Nom">-->
+<!--            <input type="text" v-model="formulaireCode"  size="30"-->
+<!--                   placeholder="Code">-->
+<!--            <input type="number" v-model="formulaireQuantite"  size="30"-->
+<!--                   placeholder="Quantite">-->
+            <div class="col-12">
+                <button class="btn btn-primary" @click.prevent="ajouteProduit">Add product</button>
+            </div>
         </form>
 
 

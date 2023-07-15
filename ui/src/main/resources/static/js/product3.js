@@ -2,9 +2,10 @@ import {ref} from 'vue'
 import axios from 'axios'
 
 class Produit {
-    constructor(id, nom, quantite) {
+    constructor(id, nom, code, quantite) {
         this.id = id;
         this.nom = nom;
+        this.code = code;
         this.quantite = quantite;
     }
 }
@@ -17,20 +18,22 @@ export default {
         const message = ref('Mon message');
         const formulaireNom = ref('');
         const formulaireQuantite = ref('');
+        const formulaireCode = ref('');
 
         function getAllProduct() {
             return axios.get('product');
         }
 
-        function addProduct(nom, quantite) {
-            console.log('ajout de \''+nom+'\' '+quantite);
+        function addProduct(nom, code, quantite) {
+            console.log('ajout de \'' + nom + '\' ' + quantite);
             return axios.post('product', {
                 nom: nom,
+                code: code,
                 quantite: quantite
-            }).then(response=>{
-                console.log('addProduct ok',response);
+            }).then(response => {
+                console.log('addProduct ok', response);
             }).catch(reason => {
-                console.error('error addProduct',reason);
+                    console.error('error addProduct', reason);
                 }
             );
         }
@@ -47,10 +50,10 @@ export default {
                             let tab = [];
                             for (let product of response.data.uiProductDtoList) {
                                 if (product.id && product.nom) {
-                                    tab.push(new Produit(product.id, product.nom, product.quantite || 0));
+                                    tab.push(new Produit(product.id, product.nom, product.code, product.quantite || 0));
                                 }
                             }
-                            listeProduits.value =tab;
+                            listeProduits.value = tab;
                         }
                     } catch (err) {
                         console.error('error initialiseListeProduits catch', err);
@@ -62,8 +65,8 @@ export default {
 
         function ajouteProduit() {
             console.log('ajouteProduit');
-            addProduct(formulaireNom.value, formulaireQuantite.value)
-                .then(()=>{
+            addProduct(formulaireNom.value, formulaireCode.value, formulaireQuantite.value)
+                .then(() => {
                     initialiseListeProduits();
                 });
             initialiseListeProduits();
@@ -73,7 +76,7 @@ export default {
 
         return {
             count, listeProduits, message,
-            formulaireNom, formulaireQuantite, ajouteProduit
+            formulaireNom, formulaireCode, formulaireQuantite, ajouteProduit
         }
     }
 }

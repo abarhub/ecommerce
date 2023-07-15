@@ -4,6 +4,7 @@ public class UIProductDto {
 
 	private long id;
 	private String nom;
+	private String code;
 	private int quantite;
 
 	public UIProductDto() {
@@ -23,6 +24,14 @@ public class UIProductDto {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public int getQuantite() {

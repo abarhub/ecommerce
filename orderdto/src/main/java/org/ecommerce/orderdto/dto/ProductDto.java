@@ -4,6 +4,7 @@ public class ProductDto {
 
 	private long id;
 	private String name;
+	private String code;
 	private int quantite;
 
 	public ProductDto() {
@@ -25,6 +26,14 @@ public class ProductDto {
 		this.name = name;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public int getQuantite() {
 		return quantite;
 	}
@@ -38,6 +47,7 @@ public class ProductDto {
 		return "ProductDto{" +
 				"id=" + id +
 				", name='" + name + '\'' +
+				", code='" + code + '\'' +
 				", quantite=" + quantite +
 				'}';
 	}
