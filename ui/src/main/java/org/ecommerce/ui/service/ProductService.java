@@ -54,4 +54,8 @@ public class ProductService {
 	public void restockProduct(String code, int amount) {
 		orderRestService.restockProduct(code,amount);
 	}
+
+	public void sell(String code, int amount) {
+		orderRestService.sell(code,amount);
+	}
 }

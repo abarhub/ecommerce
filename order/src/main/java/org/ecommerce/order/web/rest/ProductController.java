@@ -20,30 +20,51 @@ public class ProductController {
     @GetMapping(value = "product", produces = "application/json")
     //@RequestMapping(value = "/product", produces = "application/json")
     public ListProductDto getAll() {
-        LOGGER.info("getAll");
-        return productService.getAllProducts();
+        try {
+            LOGGER.info("getAll");
+            return productService.getAllProducts();
+        } catch (Exception e) {
+            LOGGER.atError().log("getAll: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
 
     @PostMapping(value = "/product", consumes = "application/json")
     public ResponseEntity<Void> add(@RequestBody ProductDto productDto) {
-        LOGGER.info("addProduct: {}", productDto);
-        productService.addProduct(productDto);
-        return ResponseEntity.ok().build();
+        try {
+            LOGGER.info("addProduct: {}", productDto);
+            productService.addProduct(productDto);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            LOGGER.atError().log("addProduct: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
     @PutMapping(value = "/product/{code}/restock/{amount}")
     public ResponseEntity<Void> restockProduct(@PathVariable String code, @PathVariable int amount) {
-        LOGGER.atInfo().addKeyValue("code", code).addKeyValue("amount", amount)
-                .log("restockProduct: code={}, amount={}", code, amount);
-        productService.restock(code, amount);
-        return ResponseEntity.ok().build();
+        try {
+            LOGGER.atInfo().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("restockProduct: code={}, amount={}", code, amount);
+            productService.restock(code, amount);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            LOGGER.atError().log("restockProduct: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
     @PutMapping(value = "/product/{code}/sell/{amount}")
     public ResponseEntity<Void> sellProduct(@PathVariable String code, @PathVariable int amount) {
-        LOGGER.info("sellProduct: code={}, amount={}", code, amount);
-        productService.sell(code, amount);
-        return ResponseEntity.ok().build();
+        try {
+            LOGGER.atInfo().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("sellProduct: code={}, amount={}", code, amount);
+            productService.sell(code, amount);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            LOGGER.atError().log("sellProduct: " + e.getMessage(), e);
+            throw e;
+        }
     }
 }

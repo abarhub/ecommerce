@@ -96,7 +96,7 @@ public class ProductService {
         var productOpt = productRepository.findByCode(code);
         if (productOpt.isPresent()) {
             var product = productOpt.get();
-            if (amount >= product.getQuantite()) {
+            if (amount <= product.getQuantite()) {
                 var countUpdated = productRepository.updateQuantity(code, -amount);
                 if (countUpdated == 0) {
                     throw new ResponseStatusException(
@@ -106,7 +106,7 @@ public class ProductService {
             } else {
                 throw new ResponseStatusException(
                         HttpStatus.PRECONDITION_FAILED,
-                        "Amount must be greater than stock (amount=" + amount + "> stock=" + product.getQuantite() + ")");
+                        "Amount must be greater than stock (amount=" + amount + " > stock=" + product.getQuantite() + ")");
             }
         } else {
             throw new ResponseStatusException(

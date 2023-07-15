@@ -23,28 +23,57 @@ public class ProductController {
 
     @GetMapping(value = "/product", produces = "application/json")
     public ListUIProductDto getAll() {
-        LOGGER.info("getAll");
-        return productService.getAllProducts();
+        try {
+            LOGGER.info("getAll");
+            return productService.getAllProducts();
+        } catch (Exception e) {
+            LOGGER.atError().log("getAll", e);
+            throw e;
+        }
     }
 
 
     @PostMapping(value = "/product", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Void> add(@RequestBody UIProductDto productDto) {
-        LOGGER.info("add:{}", productDto);
-        productService.addProduct(productDto);
-        final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(httpHeaders, HttpStatus.OK);
+        try {
+            LOGGER.info("add:{}", productDto);
+            productService.addProduct(productDto);
+            final HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            LOGGER.atError().addKeyValue("productDto", productDto)
+                    .log("add", e);
+            throw e;
+        }
     }
 
 
     @PutMapping(value = "/product/{code}/restock/{amount}")
-    public ResponseEntity<Void> restockProduct(@PathVariable String code,@PathVariable int amount) {
-        LOGGER.info("restock: code={}, amount={}", code, amount);
-        productService.restockProduct(code, amount);
-        final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(httpHeaders, HttpStatus.OK);
+    public ResponseEntity<Void> restockProduct(@PathVariable String code, @PathVariable int amount) {
+        try {
+            LOGGER.info("restock: code={}, amount={}", code, amount);
+            productService.restockProduct(code, amount);
+            final HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            LOGGER.atError().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("restockProduct", e);
+            throw e;
+        }
     }
 
+    @PutMapping(value = "/product/{code}/sell/{amount}")
+    public ResponseEntity<Void> sellProduct(@PathVariable String code, @PathVariable int amount) {
+        try {
+            LOGGER.info("sellProduct: code={}, amount={}", code, amount);
+            productService.sell(code, amount);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            LOGGER.atError().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("sellProduct", e);
+            throw e;
+        }
+    }
 }

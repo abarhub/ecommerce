@@ -24,4 +24,8 @@ public interface OrderRestService {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/product/{code}/restock/{amount}", consumes = "application/json")
 	void restockProduct(@PathVariable("code") String code, @PathVariable("amount") int amount);
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/product/{code}/sell/{amount}", consumes = "application/json")
+	void sell(@PathVariable("code") String code, @PathVariable("amount") int amount);
+
 }

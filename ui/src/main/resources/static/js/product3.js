@@ -72,11 +72,38 @@ export default {
             initialiseListeProduits();
         }
 
+        function ajouteProduitMontant(code, quantite) {
+            console.log('ajouteProduitMontant', code, quantite);
+            return axios.put('product/'+code+'/restock/1').then(response => {
+                console.log('ajouteProduitMontant ok', response);
+                initialiseListeProduits();
+            }).catch(reason => {
+                    console.error('error ajouteProduitMontant', reason);
+                }
+            );
+        }
+
+        function diminueProduitMontant(code, quantite) {
+            console.log('diminueProduitMontant', code, quantite);
+            if(quantite>0) {
+                return axios.put('product/' + code + '/sell/1').then(response => {
+                    console.log('diminueProduitMontant ok', response);
+                    initialiseListeProduits();
+                }).catch(reason => {
+                        console.error('error diminueProduitMontant', reason);
+                    }
+                );
+            } else {
+                console.error('error diminueProduitMontant: quantity='+quantite);
+            }
+        }
+
         initialiseListeProduits();
 
         return {
             count, listeProduits, message,
-            formulaireNom, formulaireCode, formulaireQuantite, ajouteProduit
+            formulaireNom, formulaireCode, formulaireQuantite, ajouteProduit,
+            ajouteProduitMontant,diminueProduitMontant
         }
     }
 }
