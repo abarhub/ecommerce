@@ -92,8 +92,10 @@ management:
       read-timeout: 30s
       endpoint: ${ZIPKIN_URI:http://localhost:9411/api/v2/spans}
 
-logging.pattern.level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+logging.pattern.level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] [%kvp]'
 
-logging:
-  level:
-    liquibase: DEBUG
+#logging:
+#  level:
+#    liquibase: DEBUG
+
+

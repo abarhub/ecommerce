@@ -52,7 +52,8 @@ public class ProductController {
     @PutMapping(value = "/product/{code}/restock/{amount}")
     public ResponseEntity<Void> restockProduct(@PathVariable String code, @PathVariable int amount) {
         try {
-            LOGGER.info("restock: code={}, amount={}", code, amount);
+            LOGGER.atInfo().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("restock: code={}, amount={}", code, amount);
             productService.restockProduct(code, amount);
             final HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -67,7 +68,8 @@ public class ProductController {
     @PutMapping(value = "/product/{code}/sell/{amount}")
     public ResponseEntity<Void> sellProduct(@PathVariable String code, @PathVariable int amount) {
         try {
-            LOGGER.info("sellProduct: code={}, amount={}", code, amount);
+            LOGGER.atInfo().addKeyValue("code", code).addKeyValue("amount", amount)
+                    .log("sellProduct: code={}, amount={}", code, amount);
             productService.sell(code, amount);
             return ResponseEntity.ok().build();
         } catch (Exception e) {

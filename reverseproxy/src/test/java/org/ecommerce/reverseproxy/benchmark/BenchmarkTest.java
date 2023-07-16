@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,5 +40,26 @@ public class BenchmarkTest {
         }catch (Exception e){
             LOGGER.warn("erreur",e);
         }
+    }
+
+    @Test
+    public void test2(){
+        RestTemplate restTemplate=new RestTemplate();
+
+        var code="code%02d".formatted(random.nextInt(3)+1);
+        var quantite=random.nextInt(10)+1;
+
+        var url="http://localhost:19090/ui/product/"+code+"/restock/"+quantite;
+
+        LOGGER.info("url={}",url);
+
+        var res=restTemplate.exchange(url, HttpMethod.PUT,null,Void.class);
+        assertEquals(HttpStatus.OK,res.getStatusCode());
+
+//        try{
+//            Thread.sleep(500);
+//        }catch (Exception e){
+//            LOGGER.warn("erreur",e);
+//        }
     }
 }

@@ -84,6 +84,6 @@ management.security.enabled: false
 #    root: DEBUG
 
 
-logging.pattern.level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+logging.pattern.level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] [%kvp]'
 
 
