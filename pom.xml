@@ -32,6 +32,7 @@
     <module>orderdto</module>
     <module>reverseproxy</module>
     <module>configurator</module>
+    <module>loadtesting</module>
   </modules>
 
   <dependencyManagement>
