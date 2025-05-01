@@ -1,9 +1,11 @@
 # ecommerce
 
-Pour builder le cocker compose :
+Pour builder le docker compose :
 ```shell
 docker-compose up --build
 ```
+
+Le dashboard eureka est ici : http://localhost:8761/
 
 Pour insteller zipkin :
 ```shell
