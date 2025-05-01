@@ -7,6 +7,8 @@ docker-compose up --build
 
 Le dashboard eureka est ici : http://localhost:8761/
 
+la page pour gérer les produits est : http://localhost:19090/ui/product3.html
+
 Pour insteller zipkin :
 ```shell
 docker run -p 9411:9411 openzipkin/zipkin:latest
