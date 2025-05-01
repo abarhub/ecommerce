@@ -23,5 +23,16 @@ il faut aller dans le module loadtesting, et executer :
 mvn gatling:test
 ```
 
+Les url:
+
+gestion des produits : http://localhost:19090/ui/product3.html
+
+log zipkin : http://localhost:9411
+
+dashboard eureka : http://localhost:8761/
+
+
+
+
 
 
