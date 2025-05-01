@@ -1,3 +1,3 @@
-FROM eclipse-temurin:17
+FROM eclipse-temurin:21.0.7_6-jre-ubi9-minimal
 COPY target/ui-1.1.0-SNAPSHOT.jar ui-1.1.0-SNAPSHOT.jar
 ENTRYPOINT ["java", "-jar","/ui-1.1.0-SNAPSHOT.jar", "--server.port=8083"]
