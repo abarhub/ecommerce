@@ -97,7 +97,7 @@ public class RestockSimulation extends Simulation {
                 .feed(listCodes.random())
                 .feed(listQuantite.random())
                 .exec(http("restock-product")
-                                .put("/product/${code}/restock/${quantite}")
+                                .put("/product/#{code}/restock/#{quantite}")
                         .header("Content-Type", "application/json")
 //                        .body(StringBody("{ \"empName\": \"${empName}\" }"))
                         .check(status().is(200))
