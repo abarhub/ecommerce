@@ -17,33 +17,35 @@ eureka:
 spring:
   cloud:
     gateway:
-      routes:
-      - id: baeldung_route
-        uri: https://www.baeldung.com/
-        predicates:
-        - Path=/baeldung/
-      - id: ui_route
-        uri: lb://ui
-        predicates:
-          - Path=/ui/**
-        filters:
-          - StripPrefix=1
-          - name: Retry
-            args:
-                retries: 1
-                #statuses: '*'
-                methods: GET,POST
-                backoff:
-                  firstBackoff: 10ms
-                  maxBackoff: 50ms
-                  factor: 2
-                  basedOnPreviousValue: false
-      httpserver:
-        wiretap: true
-      httpclient:
-        wiretap: true
-      metrics:
-        enabled: true
+      server:
+        webflux:
+          routes:
+          - id: baeldung_route
+            uri: https://www.baeldung.com/
+            predicates:
+            - Path=/baeldung/
+          - id: ui_route
+            uri: lb://ui
+            predicates:
+              - Path=/ui/**
+            filters:
+              - StripPrefix=1
+              - name: Retry
+                args:
+                    retries: 1
+                    #statuses: '*'
+                    methods: GET,POST
+                    backoff:
+                      firstBackoff: 10ms
+                      maxBackoff: 50ms
+                      factor: 2
+                      basedOnPreviousValue: false
+          httpserver:
+            wiretap: true
+          httpclient:
+            wiretap: true
+          metrics:
+            enabled: true
 
 management:
   endpoints:
